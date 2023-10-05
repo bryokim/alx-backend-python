@@ -6,7 +6,12 @@ from typing import List, SupportsIndex
 
 def zoom_array(lst: List, factor: SupportsIndex = 2) -> List:
     """Zoom an array by factor"""
-    zoomed_in: List = [item for item in lst for _ in range(factor)]
+    zoomed_in = [
+        item
+        for item in lst
+        for _ in range(factor)
+    ]
+
     return zoomed_in
 
 
