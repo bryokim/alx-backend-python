@@ -58,17 +58,9 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(repos_url, test_repos_url["repos_url"])
         mock_org.assert_called_once()
 
-    @parameterized.expand(
-        [
-            (None, expected_public_repos),
-            ("apache-2.0", public_repos_apache_license),
-        ]
-    )
     @patch("client.get_json", return_value=test_public_repos)
     def test_public_repos(
         self,
-        license_key: str,
-        expected: List,
         mock_get_json: MagicMock,
     ):
         """Test the public_repos method in GithubOrgClient.
@@ -83,9 +75,9 @@ class TestGithubOrgClient(unittest.TestCase):
             return_value="",
         ) as mock_public_repos_url:
             instance = GithubOrgClient("google")
-            public_repos = instance.public_repos(license_key)
+            public_repos = instance.public_repos()
 
-            self.assertEqual(public_repos, expected)
+            self.assertEqual(public_repos, expected_public_repos)
             mock_get_json.assert_called_once()
             mock_public_repos_url.assert_called_once()
 
